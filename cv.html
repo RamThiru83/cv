@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en"><head>
+<title>Downloads | Ramachandran Thiruvengadam</title>
+<meta name="description" content="Download Dr Ramachandran Thiruvengadam's CV in funder formats as Word or PDF, upload a template to have it filled, or download his photograph.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.tabs{display:flex;gap:.4rem;border-bottom:1px solid var(--rule);margin:0 0 2rem;overflow-x:auto}
+.tabs button{font:700 .95rem var(--sans);color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:.9rem 1.1rem;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.tabs button:hover{color:var(--ink)}.tabs button[aria-selected=true]{color:var(--accent);border-bottom-color:var(--accent)}
+.steps{display:grid;gap:1.4rem}
+@media(min-width:60rem){.steps.two{grid-template-columns:23rem 1fr;gap:3rem;align-items:start}.steps .sticky{position:sticky;top:88px}}
+.card h3{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+.num{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 .8rem var(--sans)}
+label{display:block;font-weight:600;font-size:.86rem;margin:0 0 .3rem}.field{margin:0 0 .95rem}
+.field input[type=text],.field textarea{width:100%}textarea{min-height:4.4rem;resize:vertical}
+input[type=file]{width:100%;font:inherit;font-size:.85rem;color:var(--muted);padding:.6rem;border:1.5px dashed var(--rule);border-radius:10px;background:var(--bg)}
+input[type=file]::file-selector-button{font:600 .82rem var(--sans);margin-right:.7rem;border:0;border-radius:999px;background:var(--tint);color:var(--accent);padding:.4rem .85rem;cursor:pointer}
+.hint{font-size:.8rem;color:var(--muted);margin:.35rem 0 0}
+.status{min-height:1.4rem;margin:.9rem 0 0;font-size:.9rem;font-weight:500}.status.err{color:var(--err)}.status.ok{color:var(--accent)}
+.locked{opacity:.45;pointer-events:none;filter:grayscale(.4);user-select:none}
+.summary{display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap}
+.summary p{margin:0;font-size:.92rem}.summary b{font-weight:700}
+.link{background:none;border:0;color:var(--accent);font:700 .85rem var(--sans);cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+.group{margin:0 0 2rem}.group h3.gh{font:700 .74rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 .6rem}
+.fmt{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--rule);border-radius:16px;overflow:hidden}
+.fmt li{display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:1rem 1.2rem;border-bottom:1px solid var(--rule);transition:background .15s}
+.fmt li:last-child{border-bottom:0}.fmt li:hover{background:color-mix(in srgb,var(--tint) 55%,transparent)}
+.fmt .t{font-weight:700}.fmt .d{font-size:.85rem;color:var(--muted)}.acts{display:flex;gap:.5rem;flex-shrink:0}
+.note{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--warn);border-radius:12px;padding:.9rem 1.1rem;margin:0 0 1.6rem;font-size:.88rem;color:var(--muted)}.note b{color:var(--ink)}
+.tplbox{background:var(--tint);border-radius:16px;padding:1.2rem;margin:0 0 1.8rem;display:grid;gap:.8rem}
+.tplbox .row{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.photos{display:grid;gap:1.4rem}@media(min-width:44rem){.photos{grid-template-columns:1fr 1fr}}
+.photo{background:var(--surface);border:1px solid var(--rule);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.photo img{display:block;width:100%;aspect-ratio:4/4.6;object-fit:cover;object-position:50% 20%}
+.photo .b{padding:1rem 1.1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}.photo .b span{font-size:.85rem;color:var(--muted)}
+@media(max-width:34rem){.fmt li{flex-direction:column;align-items:stretch}.acts .btn{flex:1;justify-content:center}}
+</style></head>
+<body><header id="hdr"></header>
+<main id="main">
+<div class="pagehead"><div class="wrap"><p class="eyebrow">Downloads</p><h1 data-t="dl_title">CV and photograph</h1><p class="lede" data-t="dl_lede">A few quick questions come first, so each download reaches the right person and purpose.</p></div></div>
+<section><div class="wrap">
+  <div class="tabs" role="tablist" aria-label="Downloads">
+    <button role="tab" id="t-cv" aria-controls="p-cv" aria-selected="true">Download my CV</button>
+    <button role="tab" id="t-photo" aria-controls="p-photo" aria-selected="false" tabindex="-1">Download my photograph</button>
+  </div>
+
+  <!-- CV -->
+  <div id="p-cv" role="tabpanel" aria-labelledby="t-cv">
+    <div class="steps two">
+      <form class="card sticky" id="cv-gate" novalidate>
+        <div id="cv-q">
+          <h3><span class="num">1</span> Before we start</h3>
+          <div class="field"><label for="cv-name">Your name</label><input id="cv-name" type="text" autocomplete="name" maxlength="120" required></div>
+          <div class="field"><label for="cv-agency">Funding agency or call</label><input id="cv-agency" type="text" maxlength="160" placeholder="ICMR, DBT, BIRAC, Wellcome…" required></div>
+          <div class="field"><label for="cv-purpose">Purpose</label><textarea id="cv-purpose" maxlength="400" placeholder="e.g. Co-PI biodata for an ICMR call" required></textarea>
+            <p class="hint">These details are recorded, and Dr Thiruvengadam is notified of each download.</p></div>
+          <div class="field"><label for="tpl">Do you have the funder's template? <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <input id="tpl" type="file" accept=".docx,.pdf,.txt,.md"><p class="hint">.docx, .pdf or .txt, up to 3 MB. Your CV is built in that structure.</p></div>
+          <button type="submit" class="btn" style="width:100%;justify-content:center">Continue</button>
+        </div>
+        <div id="cv-sum" class="summary" hidden><p>Requesting as <b id="cv-sum-n"></b><br><span style="color:var(--muted)" id="cv-sum-a"></span></p><button type="button" class="link" id="cv-edit">Edit</button></div>
+        <div class="status" id="cv-status" role="status" aria-live="polite"></div>
+      </form>
+      <div id="cv-step2" class="locked" aria-disabled="true">
+        <h3 style="margin-bottom:1rem"><span class="num">2</span> Choose a format</h3>
+        <div class="tplbox" id="tplbox" hidden>
+          <div><b>Your template:</b> <span id="tplname"></span></div>
+          <div class="row"><button type="button" class="btn" id="fill">Fill my template</button><label for="out" style="margin:0;font-weight:500">as</label><select id="out"><option value="docx">Word (.docx)</option><option value="pdf">PDF</option></select></div>
+          <p class="hint" style="margin:0">Takes about a minute. The layout follows the template's structure, not its exact design.</p>
+        </div>
+        <div class="note"><b>Check against the call.</b> These are standard layouts labelled by funder, not the funders' official forms. Date of birth, mobile number and similar personal fields are left for you to enter. The publication selection is for maternal and child health and prediction-model work; use your own template for other proposals.</div>
+        <div id="lists"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photograph -->
+  <div id="p-photo" role="tabpanel" aria-labelledby="t-photo" hidden>
+    <div class="steps two">
+      <form class="card sticky" id="ph-gate" novalidate>
+        <div id="ph-q">
+          <h3><span class="num">1</span> Before we start</h3>
+          <div class="field"><label for="ph-name">Your name</label><input id="ph-name" type="text" autocomplete="name" maxlength="120" required></div>
+          <div class="field"><label for="ph-agency">Organisation</label><input id="ph-agency" type="text" maxlength="160" placeholder="Institution, publisher or event" required></div>
+          <div class="field"><label for="ph-purpose">Where will it be used?</label><textarea id="ph-purpose" maxlength="400" placeholder="e.g. Speaker page for a conference" required></textarea><p class="hint">These details are recorded, and Dr Thiruvengadam is notified of each download.</p></div>
+          <button type="submit" class="btn" style="width:100%;justify-content:center">Continue</button>
+        </div>
+        <div id="ph-sum" class="summary" hidden><p>Requesting as <b id="ph-sum-n"></b><br><span style="color:var(--muted)" id="ph-sum-a"></span></p><button type="button" class="link" id="ph-edit">Edit</button></div>
+        <div class="status" id="ph-status" role="status" aria-live="polite"></div>
+      </form>
+      <div id="ph-step2" class="locked" aria-disabled="true">
+        <h3 style="margin-bottom:1rem"><span class="num">2</span> Choose a photograph</h3>
+        <div class="photos">
+          <figure class="photo" style="margin:0"><img src="img/portrait.jpg" alt="Portrait of Dr Ramachandran Thiruvengadam, close crop" loading="lazy"><figcaption class="b"><span>Close portrait · JPG, 1126 × 1333 px</span><button class="btn sm" data-ph="photo_1.jpg">Download</button></figcaption></figure>
+          <figure class="photo" style="margin:0"><img src="img/portrait-2.jpg" alt="Portrait of Dr Ramachandran Thiruvengadam, plain background" loading="lazy"><figcaption class="b"><span>Plain background · JPG, 1374 × 1487 px</span><button class="btn sm" data-ph="photo_2.jpg">Download</button></figcaption></figure>
+        </div>
+        <p class="hint" style="margin-top:1rem">Please credit: Ramachandran Thiruvengadam.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+</main>
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+<script>
+const API = 'https://vpcfegnfzulpxcmoittm.supabase.co/functions/v1/cv-portal';
+const $ = (id) => document.getElementById(id);
+const GROUPS = [
+  ['Indian funders', [['ICMR_Short_Resume', 'ICMR short resume (PI / Co-PI)', 'Ten selected publications, investigator experience, ongoing ICMR projects'], ['DBT_Biodata', 'DBT biodata', 'Standard biodata layout for DBT calls'], ['BIRAC_Biodata', 'BIRAC biodata', 'Standard biodata layout for BIRAC calls']]],
+  ['Global funders', [['NIH_Style_Biosketch', 'NIH-style biosketch', 'Personal statement, positions, contributions to science'], ['ERC_Style_CV', 'ERC-style CV', 'Narrative CV with track record']]],
+  ['General', [['Full_CV', 'Full CV', 'Complete record'], ['Two_Page_CV', 'Two-page CV', 'Short form for panels and forms'], ['Publication_List', 'Publication list', 'All peer-reviewed articles with PMIDs'], ['Short_Bio', 'Short bio', '100 and 200 word versions']]]
+];
+
+// ---- tabs ----
+function showTab(which) {
+  for (const k of ['cv', 'photo']) { const on = k === which; $('t-' + k).setAttribute('aria-selected', on); $('t-' + k).tabIndex = on ? 0 : -1; $('p-' + k).hidden = !on; }
+  history.replaceState(null, '', '#' + which);
+}
+$('t-cv').onclick = () => showTab('cv'); $('t-photo').onclick = () => showTab('photo');
+for (const k of ['t-cv', 't-photo']) $(k).addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const n = k === 't-cv' ? 'photo' : 'cv'; showTab(n); $('t-' + n).focus(); } });
+showTab(location.hash === '#photo' ? 'photo' : 'cv');
+
+// ---- shared helpers ----
+const say = (p, m, k) => { const s = $(p + '-status'); s.textContent = m; s.className = 'status ' + (k || ''); };
+const val = (p) => ({ name: $(p + '-name').value.trim(), agency: $(p + '-agency').value.trim(), purpose: $(p + '-purpose').value.trim() });
+function gate(p, onOpen) {
+  const f = $(p + '-gate');
+  f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!f.checkValidity()) { f.reportValidity(); say(p, 'Please answer all three questions to continue.', 'err'); return; }
+    const d = val(p); $(p + '-q').hidden = true; $(p + '-sum').hidden = false;
+    $(p + '-sum-n').textContent = d.name; $(p + '-sum-a').textContent = d.agency + ' · ' + d.purpose;
+    const s2 = $(p + '-step2'); s2.classList.remove('locked'); s2.removeAttribute('aria-disabled'); say(p, '');
+    if (onOpen) onOpen(); s2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $(p + '-edit').onclick = () => { $(p + '-q').hidden = false; $(p + '-sum').hidden = true; $(p + '-step2').classList.add('locked'); };
+}
+function saveBlob(blob, filename) { const u = URL.createObjectURL(blob), a = document.createElement('a'); a.href = u; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); }
+async function record(p, format) {
+  const r = await fetch(API + '/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...val(p), format }) });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || 'Could not record the request. Please try again.');
+}
+function triggerDownload(href, name) { const a = document.createElement('a'); a.href = href; a.download = name; document.body.appendChild(a); a.click(); a.remove(); }
+
+// ---- CV ----
+gate('cv', () => { const f = $('tpl').files[0]; $('tplbox').hidden = !f; if (f) $('tplname').textContent = f.name; });
+async function standard(id, label, ext, btn) {
+  btn.disabled = true; say('cv', 'Recording your request…');
+  try { await record('cv', id + '.' + ext); triggerDownload((ext === 'pdf' ? 'pdf/' : 'docx/') + id + '.' + ext, 'Ramachandran_Thiruvengadam_' + id + '.' + ext); say('cv', label + ' (' + (ext === 'pdf' ? 'PDF' : 'Word') + ') is downloading.', 'ok'); }
+  catch (e) { say('cv', e.message, 'err'); } finally { btn.disabled = false; }
+}
+async function fillTemplate() {
+  const file = $('tpl').files[0]; if (!file) return;
+  if (file.size > 3000000) { say('cv', 'That file is larger than 3 MB.', 'err'); return; }
+  const d = val('cv'), ext = $('out').value, btn = $('fill'); btn.disabled = true; say('cv', 'Building your CV in that template. This takes about a minute…');
+  const fd = new FormData(); fd.append('name', d.name); fd.append('agency', d.agency); fd.append('purpose', d.purpose); fd.append('template', file, file.name); fd.append('output', ext);
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 160000);
+  try {
+    const r = await fetch(API + '/fill', { method: 'POST', body: fd, signal: ctl.signal });
+    if (!r.ok) { const j = await r.json().catch(() => ({})); throw new Error(j.error || 'The template could not be filled. Please try again.'); }
+    saveBlob(await r.blob(), 'CV_Ramachandran_Thiruvengadam_' + d.agency.replace(/[^A-Za-z0-9]+/g, '_').slice(0, 30) + '.' + ext);
+    say('cv', 'Done. Check it against the template; fields marked "To be confirmed" need your input.', 'ok');
+  } catch (e) { say('cv', e.name === 'AbortError' ? 'That took too long. Please try a shorter template.' : e.message, 'err'); }
+  finally { clearTimeout(t); btn.disabled = false; }
+}
+$('fill').onclick = fillTemplate;
+const host = $('lists');
+for (const [g, items] of GROUPS) {
+  const w = document.createElement('div'); w.className = 'group';
+  const h = document.createElement('h3'); h.className = 'gh'; h.textContent = g; w.appendChild(h);
+  const ul = document.createElement('ul'); ul.className = 'fmt';
+  for (const [id, title, desc] of items) {
+    const li = document.createElement('li'), box = document.createElement('div');
+    const t = document.createElement('div'); t.className = 't'; t.textContent = title;
+    const dd = document.createElement('div'); dd.className = 'd'; dd.textContent = desc; box.append(t, dd);
+    const acts = document.createElement('div'); acts.className = 'acts';
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'btn sm'; b.textContent = 'Word'; b.setAttribute('aria-label', 'Download ' + title + ' as Word file'); b.onclick = () => standard(id, title, 'docx', b);
+    const p = document.createElement('button'); p.type = 'button'; p.className = 'btn sm ghost'; p.textContent = 'PDF'; p.setAttribute('aria-label', 'Download ' + title + ' as PDF'); p.onclick = () => standard(id, title, 'pdf', p);
+    acts.append(b, p); li.append(box, acts); ul.appendChild(li);
+  }
+  w.appendChild(ul); host.appendChild(w);
+}
+
+// ---- photograph ----
+gate('ph');
+document.querySelectorAll('[data-ph]').forEach((b) => b.addEventListener('click', async () => {
+  const f = b.dataset.ph; b.disabled = true; say('ph', 'Recording your request…');
+  try { await record('ph', f); const src = 'img/download/Ramachandran_Thiruvengadam_' + f; const r = await fetch(src); if (!r.ok) throw new Error('The photograph could not be loaded.'); saveBlob(await r.blob(), 'Ramachandran_Thiruvengadam_' + f); say('ph', 'Your photograph is downloading.', 'ok'); }
+  catch (e) { say('ph', e.message, 'err'); } finally { b.disabled = false; }
+}));
+</script></body></html>

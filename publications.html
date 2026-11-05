@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head>
+<title>Publications | Ramachandran Thiruvengadam</title>
+<meta name="description" content="Peer-reviewed publications of Dr Ramachandran Thiruvengadam with links to PubMed and DOI.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body><header id="hdr"></header>
+<main id="main">
+<div class="pagehead"><div class="wrap"><p class="eyebrow">Publications</p><h1 data-t="pubs_title">Peer-reviewed articles</h1><p class="lede" data-t="pubs_lede">Search by title, author or journal, and filter by year or authorship role.</p></div></div>
+<section><div class="wrap">
+  <div class="tools">
+    <input id="q" type="text" placeholder="Search title, author or journal" aria-label="Search publications">
+    <select id="yr" aria-label="Year"><option value="">All years</option></select>
+    <select id="role" aria-label="Authorship role"><option value="">Any role</option><option value="lead">First or corresponding</option><option value="second">Second author</option><option value="last">Last author</option><option value="other">Co-author or group</option></select>
+  </div>
+  <p class="count" id="count" aria-live="polite"></p>
+  <div id="list"></div>
+</div></section>
+</main>
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+<script>
+CV.data().then((d) => {
+  const $ = (i) => document.getElementById(i);
+  if (!d) { $('list').textContent = 'The publication list could not be loaded.'; return; }
+  const all = d.PUBS;
+  [...new Set(all.map((p) => p[3]))].sort().reverse().forEach((y) => { const o = document.createElement('option'); o.value = o.textContent = y; $('yr').appendChild(o); });
+  const grp = (p) => (['first', 'corresponding'].includes(p[7]) ? 'lead' : p[7] === 'second' ? 'second' : p[7] === 'last' ? 'last' : 'other');
+  function draw() {
+    const q = $('q').value.trim().toLowerCase(), y = $('yr').value, r = $('role').value;
+    const out = all.filter((p) => (!y || p[3] === y) && (!r || grp(p) === r) && (!q || (p[0] + ' ' + p[1] + ' ' + p[2]).toLowerCase().includes(q)));
+    $('count').textContent = out.length + ' of ' + all.length + ' publications';
+    $('list').innerHTML = out.map(CV.pubHtml).join('') || '<p style="color:var(--muted)">No publications match.</p>';
+  }
+  ['input', 'change'].forEach((ev) => { $('q').addEventListener(ev, draw); $('yr').addEventListener(ev, draw); $('role').addEventListener(ev, draw); });
+  draw();
+});
+</script></body></html>

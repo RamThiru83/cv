@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head>
+<title>About | Ramachandran Thiruvengadam</title>
+<meta name="description" content="Biography, positions, education, awards, advisory roles and teaching of Dr Ramachandran Thiruvengadam.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.intro{display:grid;gap:2rem;align-items:start}
+@media(min-width:52rem){.intro{grid-template-columns:19rem 1fr;gap:3.6rem}}
+.ph{margin:0}.ph img{display:block;width:100%;aspect-ratio:1/1.08;object-fit:cover;object-position:50% 25%;border-radius:22px;box-shadow:var(--shadow)}
+.intro p{font-size:1.05rem;max-width:42rem}
+.links{display:flex;gap:1.4rem;flex-wrap:wrap;font-weight:700;font-size:.92rem;margin-top:1.2rem}.links a{color:var(--accent);text-underline-offset:4px}
+h2.sm{font-size:1.5rem;margin:0 0 1rem}
+ul.plain{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule)}ul.plain li{padding:.85rem 0;border-bottom:1px solid var(--rule)}
+</style></head>
+<body><header id="hdr"></header>
+<main id="main">
+<div class="pagehead"><div class="wrap"><p class="eyebrow">About</p><h1 data-t="about_title">Physician, researcher, teacher</h1><p class="lede" data-t="about_lede">Trained in paediatrics and biochemistry, with a Ph.D. in maternal and child health.</p></div></div>
+<section><div class="wrap intro">
+  <figure class="ph"><img src="img/portrait-2.jpg" alt="Dr Ramachandran Thiruvengadam smiling" width="900" height="974"></figure>
+  <div><p id="bio"></p><div class="links"><a id="l-orcid" href="#" rel="noopener">ORCID</a><a id="l-scholar" href="#" rel="noopener">Google Scholar</a><a href="cv.html">Download a CV</a></div></div>
+</div></section>
+<section class="alt"><div class="wrap"><h2 class="sm">Positions</h2><ul class="rule-list" id="pos"></ul></div></section>
+<section><div class="wrap grid g2" style="gap:3rem">
+  <div><h2 class="sm">Education</h2><ul class="rule-list" id="edu"></ul></div>
+  <div><h2 class="sm">Awards</h2><ul class="rule-list" id="awd"></ul></div>
+</div></section>
+<section class="alt"><div class="wrap grid g2" style="gap:3rem">
+  <div><h2 class="sm">Advisory and editorial roles</h2><ul class="plain" id="roles"></ul></div>
+  <div><h2 class="sm">Teaching</h2><ul class="plain" id="teach"></ul></div>
+</div></section>
+<section><div class="wrap grid g2" style="gap:3rem">
+  <div><h2 class="sm">Leadership and collaborations</h2><ul class="plain" id="lead"></ul></div>
+  <div><h2 class="sm">Workshops organised</h2><ul class="plain" id="work"></ul></div>
+</div></section>
+<section class="alt" id="contact"><div class="wrap"><h2 class="sm">Contact</h2>
+  <div class="card" style="max-width:34rem"><p style="margin:0 0 .4rem;font-weight:700" id="c-name"></p><p style="margin:0;color:var(--muted)" id="c-inst"></p><p style="margin:.8rem 0 0"><a id="c-mail" href="#" style="color:var(--accent);font-weight:700"></a></p><p style="margin:.6rem 0 0;color:var(--muted);font-size:.9rem" id="c-addr"></p></div>
+</div></section>
+</main>
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+<script>
+CV.data().then((d) => {
+  if (!d) return; const e = CV.esc, P = d.PERSON;
+  document.getElementById('bio').textContent = d.SHORT_BIO_100;
+  document.getElementById('l-orcid').href = 'https://orcid.org/' + P.orcid; document.getElementById('l-scholar').href = P.scholar;
+  const row = (k, t, s) => '<li class="row"><div class="k">' + e(k) + '</div><div><div class="t">' + e(t) + '</div>' + (s ? '<div class="s">' + e(s) + '</div>' : '') + '</div></li>';
+  document.getElementById('pos').innerHTML = d.POSITIONS.map((p) => row(p[2] + ' to ' + p[3], p[1], p[0])).join('');
+  document.getElementById('edu').innerHTML = d.EDUCATION.map((p) => row(p[2], p[1], p[0]).replace('class="row"', 'class="row" style="grid-template-columns:5rem 1fr"')).join('');
+  document.getElementById('awd').innerHTML = d.AWARDS.map((a) => '<li><div class="t" style="font-weight:600">' + e(a[0]) + '</div><div class="s">' + e(a[1]) + '</div></li>').join('');
+  const list = (id, arr) => document.getElementById(id).innerHTML = arr.map((x) => '<li>' + e(x) + '</li>').join('');
+  list('roles', d.ROLES); list('teach', d.TEACHING); list('lead', d.LEADERSHIP); list('work', d.WORKSHOPS);
+  document.getElementById('c-name').textContent = P.name; document.getElementById('c-inst').textContent = P.position + ', ' + P.institute;
+  const m = document.getElementById('c-mail'); m.textContent = P.email; m.href = 'mailto:' + P.email; document.getElementById('c-addr').textContent = P.address;
+});
+</script></body></html>

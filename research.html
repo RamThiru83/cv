@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head>
+<title>Research | Ramachandran Thiruvengadam</title>
+<meta name="description" content="Research themes, funded projects and patents: prediction models, AI-enabled obstetric imaging, multi-omics and trials in maternal and child health.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>.proj-card{padding:1.2rem 0;border-bottom:1px solid var(--rule);display:grid;gap:.4rem}.proj-card:first-child{border-top:1px solid var(--rule)}.proj-card .m{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;font-size:.86rem;color:var(--muted)}h2.sm{font-size:1.5rem;margin:0 0 1rem}</style></head>
+<body><header id="hdr"></header>
+<main id="main">
+<div class="pagehead"><div class="wrap"><p class="eyebrow">Research</p><h1 data-t="research_title">Prediction, imaging and prevention</h1><p class="lede" data-t="research_lede">Work that moves from cohorts and biomarkers to tools that clinicians and programmes can use.</p></div></div>
+<section><div class="wrap"><div class="grid g2" id="themes">
+  <div class="theme"><span class="ix">01</span><h3>Clinical prediction models</h3><p>Developing and validating predictive and diagnostic tools for adverse pregnancy outcomes such as preterm birth and fetal growth restriction, using robustly designed cohort studies and pooled analyses.</p></div>
+  <div class="theme"><span class="ix">02</span><h3>AI-enabled imaging</h3><p>Point-of-care obstetric ultrasound tools, including the patented Garbh-Ini gestational age estimation system (GAUGE), built with IIT Madras and the Robert Bosch Centre for Data Science and AI.</p></div>
+  <div class="theme"><span class="ix">03</span><h3>Multi-omics and biomarkers</h3><p>Biomarker discovery for preterm birth and other outcomes within the GARBH-Ini programme, working with multi-omics and data-science teams.</p></div>
+  <div class="theme"><span class="ix">04</span><h3>Trials and epidemiology</h3><p>Randomised trials such as GRASPP, large cohort analyses of small vulnerable newborns and gestational weight gain, and the Multi-Omics for Mothers and Infants (MOMI) consortium.</p></div>
+</div></div></section>
+<section class="alt" id="projects"><div class="wrap"><h2 class="sm">Current projects</h2><div id="ongoing"></div></div></section>
+<section><div class="wrap grid g2" style="gap:3rem">
+  <div><h2 class="sm">Completed projects</h2><div id="done"></div></div>
+  <div><h2 class="sm">Patents</h2><div id="pat"></div></div>
+</div></section>
+</main>
+<footer id="ftr"></footer>
+<script src="assets/site.js"></script>
+<script>
+CV.data().then((d) => {
+  if (!d) return; const e = CV.esc;
+  const card = (g) => '<div class="proj-card"><div style="font-weight:700">' + e(g[0]) + '</div><div class="m"><span class="chip">' + e(g[2]) + '</span><span>' + e(g[1]) + '</span><span>' + e(g[3]) + '</span></div></div>';
+  document.getElementById('themes').innerHTML = d.SITE.themes.map((t, i) => '<div class="theme"><span class="ix">0' + (i + 1) + '</span><h3>' + e(t[0]) + '</h3><p>' + e(t[2] || t[1]) + '</p></div>').join('');
+  document.getElementById('ongoing').innerHTML = d.GRANTS_ONGOING.map(card).join('');
+  document.getElementById('done').innerHTML = d.GRANTS_COMPLETED.map(card).join('');
+  document.getElementById('pat').innerHTML = d.PATENTS.map((p) => '<div class="proj-card"><div style="font-weight:700">' + e(p[0]) + '</div><div class="m"><span class="chip n">Application ' + e(p[1]) + '</span><span>' + e(p[2]) + '</span></div><div style="color:var(--muted);font-size:.9rem">' + e(p[3]) + '</div></div>').join('');
+});
+</script></body></html>
