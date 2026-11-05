@@ -21,7 +21,7 @@
     focus_title: 'Four lines of work, one aim',
     focus_sub: 'Reduce preterm birth, fetal growth restriction and other adverse outcomes with tools that work at public-health scale.',
     band_title: 'Need a CV for a funding call?',
-    band_text: 'ICMR, DBT, BIRAC, NIH-style and ERC-style layouts as Word or PDF, or upload the funder\u2019s template.',
+    band_text: 'ICMR, DBT and BIRAC layouts, plus a full CV, two-page CV, publication list and short bio, as Word or PDF, or upload the funder\u2019s template.',
     research_title: 'Prediction, imaging and prevention',
     research_lede: 'Work that moves from cohorts and biomarkers to tools that clinicians and programmes can use.',
     about_title: 'Partnerships and practice',

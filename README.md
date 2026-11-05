@@ -11,7 +11,7 @@ cv_data.json: public-edition data. It is the fallback; live content is read firs
 portrait.jpg, portrait-2.jpg: web images. Ramachandran_Thiruvengadam_photo_1.jpg and _photo_2.jpg: full-resolution photographs for download.
 
 ## Folders
-docx/ and pdf/: the standard CV files (BIRAC, DBT, ERC-style, Full CV, ICMR short resume, NIH-style biosketch, publication list, short bio, two-page CV). They are fixed copies; admin edits do not regenerate them.
+docx/ and pdf/: the standard CV files (BIRAC, DBT, Full CV, ICMR short resume, publication list, short bio, two-page CV). They are fixed copies; admin edits do not regenerate them.
 
 ## Backend (Supabase project, not in this repository)
 cv-portal edge function: download log and template filling.
