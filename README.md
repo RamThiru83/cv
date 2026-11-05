@@ -14,7 +14,7 @@ portrait.jpg, portrait-2.jpg: web images. Ramachandran_Thiruvengadam_photo_1.jpg
 docx/ and pdf/: the standard CV files (BIRAC, DBT, ERC-style, Full CV, ICMR short resume, NIH-style biosketch, publication list, short bio, two-page CV). They are fixed copies; admin edits do not regenerate them.
 
 ## Backend (Supabase project, not in this repository)
-cv-portal edge function: download log, phone alert, template filling.
+cv-portal edge function: download log and template filling.
 cv-admin edge function: admin sign-in and content saving.
 
 ## Rule

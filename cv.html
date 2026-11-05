@@ -17,7 +17,7 @@
 .card h3{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
 .num{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 .8rem var(--sans)}
 label{display:block;font-weight:600;font-size:.86rem;margin:0 0 .3rem}.field{margin:0 0 .95rem}
-.field input[type=text],.field textarea{width:100%}textarea{min-height:4.4rem;resize:vertical}
+.field input[type=text],.field textarea,.field select{width:100%}textarea{min-height:4.4rem;resize:vertical}
 input[type=file]{width:100%;font:inherit;font-size:.85rem;color:var(--muted);padding:.6rem;border:1.5px dashed var(--rule);border-radius:10px;background:var(--bg)}
 input[type=file]::file-selector-button{font:600 .82rem var(--sans);margin-right:.7rem;border:0;border-radius:999px;background:var(--tint);color:var(--accent);padding:.4rem .85rem;cursor:pointer}
 .hint{font-size:.8rem;color:var(--muted);margin:.35rem 0 0}
@@ -57,8 +57,8 @@ input[type=file]::file-selector-button{font:600 .82rem var(--sans);margin-right:
           <h3><span class="num">1</span> Before we start</h3>
           <div class="field"><label for="cv-name">Your name</label><input id="cv-name" type="text" autocomplete="name" maxlength="120" required></div>
           <div class="field"><label for="cv-agency">Funding agency or call</label><input id="cv-agency" type="text" maxlength="160" placeholder="ICMR, DBT, BIRAC, Wellcome…" required></div>
-          <div class="field"><label for="cv-purpose">Purpose</label><textarea id="cv-purpose" maxlength="400" placeholder="e.g. Co-PI biodata for an ICMR call" required></textarea>
-            <p class="hint">These details are recorded, and Dr Thiruvengadam is notified of each download.</p></div>
+          <div class="field"><label for="cv-purpose">Area of work</label><select id="cv-purpose" required><option value="" selected disabled>Select an area</option><option>Maternal and child health</option><option>Clinical research</option><option>Vaccines and infectious diseases</option><option>Clinical prediction modelling</option></select>
+            <p class="hint">These details are recorded with each download.</p></div>
           <div class="field"><label for="tpl">Do you have the funder's template? <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
             <input id="tpl" type="file" accept=".docx,.pdf,.txt,.md"><p class="hint">.docx, .pdf or .txt, up to 3 MB. Your CV is built in that structure.</p></div>
           <button type="submit" class="btn" style="width:100%;justify-content:center">Continue</button>
@@ -87,7 +87,7 @@ input[type=file]::file-selector-button{font:600 .82rem var(--sans);margin-right:
           <h3><span class="num">1</span> Before we start</h3>
           <div class="field"><label for="ph-name">Your name</label><input id="ph-name" type="text" autocomplete="name" maxlength="120" required></div>
           <div class="field"><label for="ph-agency">Organisation</label><input id="ph-agency" type="text" maxlength="160" placeholder="Institution, publisher or event" required></div>
-          <div class="field"><label for="ph-purpose">Where will it be used?</label><textarea id="ph-purpose" maxlength="400" placeholder="e.g. Speaker page for a conference" required></textarea><p class="hint">These details are recorded, and Dr Thiruvengadam is notified of each download.</p></div>
+          <div class="field"><label for="ph-purpose">Where will it be used?</label><textarea id="ph-purpose" maxlength="400" placeholder="e.g. Speaker page for a conference" required></textarea><p class="hint">These details are recorded with each download.</p></div>
           <button type="submit" class="btn" style="width:100%;justify-content:center">Continue</button>
         </div>
         <div id="ph-sum" class="summary" hidden><p>Requesting as <b id="ph-sum-n"></b><br><span style="color:var(--muted)" id="ph-sum-a"></span></p><button type="button" class="link" id="ph-edit">Edit</button></div>
