@@ -56,6 +56,8 @@ input[type=file]::file-selector-button{font:600 .82rem var(--sans);margin-right:
         <div id="cv-q">
           <h3><span class="num">1</span> Before we start</h3>
           <div class="field"><label for="cv-name">Your name</label><input id="cv-name" type="text" autocomplete="name" maxlength="120" required></div>
+          <div class="field"><label for="cv-email">Your email</label><input id="cv-email" type="email" autocomplete="email" maxlength="120" placeholder="name@organisation.org" required>
+            <p class="hint">Each CV is also sent to this address. It is used for that and for nothing else.</p></div>
           <div class="field"><label for="cv-agency">Funding agency or call</label><input id="cv-agency" type="text" maxlength="160" placeholder="ICMR, DBT, BIRAC, Wellcome…" required></div>
           <div class="field"><label for="cv-purpose">Area of work</label><select id="cv-purpose" required><option value="" selected disabled>Select an area</option><option>Maternal and child health</option><option>Clinical research</option><option>Vaccines and infectious diseases</option><option>Clinical prediction modelling</option></select>
             <p class="hint">These details are recorded with each download.</p></div>
@@ -70,10 +72,10 @@ input[type=file]::file-selector-button{font:600 .82rem var(--sans);margin-right:
         <h3 style="margin-bottom:1rem"><span class="num">2</span> Choose a format</h3>
         <div class="tplbox" id="tplbox" hidden>
           <div><b>Your template:</b> <span id="tplname"></span></div>
-          <div class="row"><button type="button" class="btn" id="fill">Fill my template</button><label for="out" style="margin:0;font-weight:500">as</label><select id="out"><option value="docx">Word (.docx)</option><option value="pdf">PDF</option></select></div>
-          <p class="hint" style="margin:0">Takes about a minute. The layout follows the template's structure, not its exact design.</p>
+          <div class="row"><button type="button" class="btn" id="fill">Fill my template</button><span id="outrow" style="display:inline-flex;gap:.6rem;align-items:center"><label for="out" style="margin:0;font-weight:500">as</label><select id="out"><option value="docx">Word (.docx)</option><option value="pdf">PDF</option></select></span></div>
+          <p class="hint" style="margin:0">Takes about a minute. <span id="outnote"></span></p>
         </div>
-        <div class="note"><b>Check against the call.</b> These are standard layouts labelled by funder, not the funders' official forms. Date of birth, mobile number and similar personal fields are left for you to enter. The publication selection is for maternal and child health and prediction-model work; use your own template for other proposals.</div>
+        <div class="note"><b>Check against the call.</b> These are standard layouts labelled by funder, not the funders' official forms. Date of birth, mobile number and similar personal details are not shared and appear as &ldquo;Available on request&rdquo;. The publication selection is for maternal and child health and prediction-model work; use your own template for other proposals.</div>
         <div id="lists"></div>
       </div>
     </div>
@@ -126,14 +128,14 @@ showTab(location.hash === '#photo' ? 'photo' : 'cv');
 
 // ---- shared helpers ----
 const say = (p, m, k) => { const s = $(p + '-status'); s.textContent = m; s.className = 'status ' + (k || ''); };
-const val = (p) => ({ name: $(p + '-name').value.trim(), agency: $(p + '-agency').value.trim(), purpose: $(p + '-purpose').value.trim() });
+const val = (p) => ({ name: $(p + '-name').value.trim(), agency: $(p + '-agency').value.trim(), purpose: $(p + '-purpose').value.trim(), email: $(p + '-email') ? $(p + '-email').value.trim() : '' });
 function gate(p, onOpen) {
   const f = $(p + '-gate');
   f.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!f.checkValidity()) { f.reportValidity(); say(p, 'Please answer all three questions to continue.', 'err'); return; }
+    if (!f.checkValidity()) { f.reportValidity(); say(p, 'Please answer every question to continue' + (p === 'cv' ? ', including a valid email address.' : '.'), 'err'); return; }
     const d = val(p); $(p + '-q').hidden = true; $(p + '-sum').hidden = false;
-    $(p + '-sum-n').textContent = d.name; $(p + '-sum-a').textContent = d.agency + ' · ' + d.purpose;
+    $(p + '-sum-n').textContent = d.name; $(p + '-sum-a').textContent = (d.email ? d.email + ' · ' : '') + d.agency + ' · ' + d.purpose;
     const s2 = $(p + '-step2'); s2.classList.remove('locked'); s2.removeAttribute('aria-disabled'); say(p, '');
     if (onOpen) onOpen(); s2.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
@@ -144,27 +146,33 @@ async function record(p, format) {
   const r = await fetch(API + '/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...val(p), format }) });
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.error || 'Could not record the request. Please try again.');
+  return j;
 }
+const sentNote = (st, email) => st === 'sent' ? ' A copy has been emailed to ' + email + '.' : st === 'failed' ? ' The email could not be sent, so please use the download.' : st === 'unconfigured' ? ' Email delivery is not switched on yet, so please use the download.' : '';
 function triggerDownload(href, name) { const a = document.createElement('a'); a.href = href; a.download = name; document.body.appendChild(a); a.click(); a.remove(); }
 
 // ---- CV ----
-gate('cv', () => { const f = $('tpl').files[0]; $('tplbox').hidden = !f; if (f) $('tplname').textContent = f.name; });
+gate('cv', () => {
+  const f = $('tpl').files[0]; $('tplbox').hidden = !f;
+  if (f) { $('tplname').textContent = f.name; const dx = /\.docx$/i.test(f.name); $('out').value = 'docx'; $('outrow').style.display = dx ? 'none' : 'inline-flex'; $('outnote').textContent = dx ? 'Your Word template is filled in place, so its layout is kept.' : 'The layout follows the template\'s structure, not its exact design.'; }
+});
 async function standard(id, label, ext, btn) {
   btn.disabled = true; say('cv', 'Recording your request…');
-  try { await record('cv', id + '.' + ext); triggerDownload((ext === 'pdf' ? 'pdf/' : 'docx/') + id + '.' + ext, 'Ramachandran_Thiruvengadam_' + id + '.' + ext); say('cv', label + ' (' + (ext === 'pdf' ? 'PDF' : 'Word') + ') is downloading.', 'ok'); }
+  try { const j = await record('cv', id + '.' + ext); triggerDownload((ext === 'pdf' ? 'pdf/' : 'docx/') + id + '.' + ext, 'Ramachandran_Thiruvengadam_' + id + '.' + ext); say('cv', label + ' (' + (ext === 'pdf' ? 'PDF' : 'Word') + ') is downloading.' + sentNote(j.emailed, val('cv').email), 'ok'); }
   catch (e) { say('cv', e.message, 'err'); } finally { btn.disabled = false; }
 }
 async function fillTemplate() {
   const file = $('tpl').files[0]; if (!file) return;
   if (file.size > 3000000) { say('cv', 'That file is larger than 3 MB.', 'err'); return; }
-  const d = val('cv'), ext = $('out').value, btn = $('fill'); btn.disabled = true; say('cv', 'Building your CV in that template. This takes about a minute…');
-  const fd = new FormData(); fd.append('name', d.name); fd.append('agency', d.agency); fd.append('purpose', d.purpose); fd.append('template', file, file.name); fd.append('output', ext);
+  const d = val('cv'), isDocx = /\.docx$/i.test(file.name), ext = isDocx ? 'docx' : $('out').value, btn = $('fill'); btn.disabled = true; say('cv', 'Building your CV in that template. This takes about a minute…');
+  const fd = new FormData(); fd.append('name', d.name); fd.append('agency', d.agency); fd.append('purpose', d.purpose); fd.append('email', d.email); fd.append('template', file, file.name); fd.append('output', ext);
   const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 160000);
   try {
     const r = await fetch(API + '/fill', { method: 'POST', body: fd, signal: ctl.signal });
     if (!r.ok) { const j = await r.json().catch(() => ({})); throw new Error(j.error || 'The template could not be filled. Please try again.'); }
+    const em = r.headers.get('X-Emailed'), nt = r.headers.get('X-Notes');
     saveBlob(await r.blob(), 'CV_Ramachandran_Thiruvengadam_' + d.agency.replace(/[^A-Za-z0-9]+/g, '_').slice(0, 30) + '.' + ext);
-    say('cv', 'Done. Check it against the template; fields marked "To be confirmed" need your input.', 'ok');
+    say('cv', 'Done. Your CV is downloading.' + sentNote(em, d.email) + (nt ? ' Not included (not in the CV record): ' + decodeURIComponent(nt) + '.' : ''), 'ok');
   } catch (e) { say('cv', e.name === 'AbortError' ? 'That took too long. Please try a shorter template.' : e.message, 'err'); }
   finally { clearTimeout(t); btn.disabled = false; }
 }

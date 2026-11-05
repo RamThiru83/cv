@@ -252,7 +252,7 @@ table.log th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;colo
     try {
       const r = await api('requests'), rows = r.requests || [];
       $('#logs').textContent = rows.length + ' request' + (rows.length === 1 ? '' : 's');
-      $('#logt').innerHTML = '<table class="log"><thead><tr><th>When</th><th>Name</th><th>Agency</th><th>Purpose</th><th>Item</th><th>Status</th></tr></thead><tbody>' + rows.map((x) => '<tr><td>' + E(new Date(x.created_at).toLocaleString()) + '</td><td>' + E(x.requester_name) + '</td><td>' + E(x.funding_agency) + '</td><td>' + E(x.purpose) + '</td><td>' + E(x.mode === 'template' ? ('Template: ' + (x.template_name || '')) : x.format_id) + '</td><td>' + E(x.status || '') + '</td></tr>').join('') + '</tbody></table>';
+      $('#logt').innerHTML = '<table class="log"><thead><tr><th>When</th><th>Name</th><th>Email</th><th>Agency</th><th>Purpose</th><th>Item</th><th>Status</th></tr></thead><tbody>' + rows.map((x) => '<tr><td>' + E(new Date(x.created_at).toLocaleString()) + '</td><td>' + E(x.requester_name) + '</td><td>' + E(x.requester_email || '') + '</td><td>' + E(x.funding_agency) + '</td><td>' + E(x.purpose) + '</td><td>' + E(x.mode === 'template' ? ('Template: ' + (x.template_name || '')) : x.format_id) + '</td><td>' + E((x.status || '') + (x.email_status ? ' · email ' + x.email_status : '')) + '</td></tr>').join('') + '</tbody></table>';
     } catch (e) { const s = $('#logs'); if (s) { s.className = 'status err'; s.textContent = e.message; } }
   }
 
