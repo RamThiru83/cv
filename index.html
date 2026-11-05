@@ -10,36 +10,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 <style>
+.strip{background:var(--tint);border-bottom:1px solid var(--rule)}
+.strip .wrap{display:flex;align-items:center;justify-content:space-between;gap:.4rem 1.2rem;flex-wrap:wrap;padding-top:.55rem;padding-bottom:.55rem;font-size:.86rem}
+.strip p{margin:0;color:var(--muted)}.strip b{color:var(--ink);font-weight:700;margin-right:.5rem}
+.strip a{font-weight:700;color:var(--accent);text-decoration:none;white-space:nowrap}.strip a:hover{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:40rem){.strip .band-t{display:none}}
 .hero{padding:clamp(2.2rem,6vw,5rem) 0 clamp(2.4rem,5vw,4.4rem)}
 .hero .wrap{display:grid;gap:2.4rem;align-items:center}
 @media(min-width:56rem){.hero .wrap{grid-template-columns:1.15fr .85fr;gap:4rem}}
 .stats{display:flex;gap:2.2rem;flex-wrap:wrap;margin:2.4rem 0 0;padding-top:1.4rem;border-top:1px solid var(--rule)}
 .stat b{display:block;font:500 1.9rem/1 var(--serif);letter-spacing:-.02em}.stat span{font-size:.8rem;color:var(--muted)}
-.portrait{position:relative;justify-self:center;width:min(100%,25rem);margin:0}
-.portrait img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 22%;border-radius:200px 200px 22px 22px;box-shadow:var(--shadow)}
-.portrait::before{content:"";position:absolute;inset:14px -14px -14px 14px;border:1.5px solid var(--accent);border-radius:200px 200px 22px 22px;opacity:.35;z-index:-1}
-.tag{position:absolute;left:-10px;bottom:22px;background:var(--surface);border:1px solid var(--rule);box-shadow:var(--shadow);border-radius:14px;padding:.65rem .9rem;font-size:.8rem;line-height:1.35;max-width:14rem}.tag b{display:block}
-@media(max-width:34rem){.tag{left:6px}}
+.partners{background:var(--surface);border:1px solid var(--rule);border-radius:22px;box-shadow:var(--shadow);padding:clamp(1.3rem,3vw,2rem);justify-self:center;width:100%;max-width:27rem}
+.partners h2{font-size:1.5rem;margin:0 0 .3rem}.partners .sub{color:var(--muted);font-size:.92rem;margin:0 0 1.2rem}
+.pr{padding:.95rem 0;border-top:1px solid var(--rule)}.pr h3{font:700 .72rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 .55rem}
+.pc{display:flex;flex-wrap:wrap;gap:.4rem}.pc span{font-size:.84rem;font-weight:600;background:var(--sunk);border:1px solid var(--rule);border-radius:999px;padding:.28rem .75rem;line-height:1.35}
+.partners .more{display:inline-block;margin-top:.8rem}
+.byline{display:flex;align-items:center;gap:.9rem;margin:1.8rem 0 0}.byline img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 18%;box-shadow:var(--shadow);flex:none}.byline p{margin:0;font-size:.88rem;line-height:1.4;color:var(--muted)}.byline b{display:block;color:var(--ink);font-size:.95rem}
 .proj{display:flex;gap:1rem;justify-content:space-between;align-items:flex-start;padding:1rem 0;border-bottom:1px solid var(--rule)}
 .proj:first-child{border-top:1px solid var(--rule)}.proj .s{color:var(--muted);font-size:.88rem}
 .head2{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;margin-bottom:1.6rem}.head2 h2{margin:0}
 .more{font-weight:700;font-size:.9rem;color:var(--accent);text-underline-offset:4px}
 </style></head>
 <body><header id="hdr"></header>
+<div class="strip"><div class="wrap"><p><b data-t="band_title">Need a CV for a funding call?</b><span class="band-t" data-t="band_text">ICMR, DBT, BIRAC, NIH-style and ERC-style layouts as Word or PDF, or upload the funder’s template.</span></p><a href="cv.html">Get a CV &rarr;</a></div></div>
 <main id="main">
 <section class="hero"><div class="wrap">
   <div>
-    <p class="eyebrow" data-t="hero_eyebrow">Physician-scientist · Maternal and child health</p>
-    <h1 data-t="hero_title">Better tools to protect mothers and babies.</h1>
-    <p class="lede" data-t="hero_lede">Dr Ramachandran Thiruvengadam is an Associate Professor at BRIC-THSTI, Faridabad. His group develops prediction models, AI-enabled imaging and trials to reduce adverse pregnancy outcomes.</p>
+    <p class="eyebrow" data-t="hero_eyebrow">Maternal and child health · Translational research</p>
+    <h1 data-t="hero_title">Better tools to protect mothers and babies, built together.</h1>
+    <p class="lede" data-t="hero_lede">The Maternal and Child Health Programme at BRIC-THSTI, Faridabad, works with clinicians, data scientists and public-health partners on prediction models, AI-enabled imaging and trials to reduce adverse pregnancy outcomes.</p>
     <div class="btns"><a class="btn" href="research.html">Explore the research</a><a class="btn ghost" href="cv.html">Download a CV</a></div>
+    <div class="byline"><img src="portrait.jpg" alt="Dr Ramachandran Thiruvengadam" width="56" height="56"><p><b>Dr Ramachandran Thiruvengadam</b>Associate Professor, Maternal and Child Health Programme</p></div>
     <div class="stats" aria-label="Publication metrics">
       <div class="stat"><b id="s-pubs">60</b><span>peer-reviewed articles</span></div>
       <div class="stat"><b id="s-h">22</b><span>h-index (Google Scholar)</span></div>
       <div class="stat"><b id="s-c">3,841</b><span>citations</span></div>
     </div>
   </div>
-  <figure class="portrait"><img src="portrait.jpg" alt="Portrait of Dr Ramachandran Thiruvengadam" width="900" height="1065" fetchpriority="high"><figcaption class="tag"><b>Dr Ramachandran Thiruvengadam</b><span data-t="hero_tag">M.D., Ph.D. · BRIC-THSTI</span></figcaption></figure>
+  <aside class="partners" aria-labelledby="pn-t"><h2 id="pn-t" data-t="panel_title">Built with partners</h2><p class="sub" data-t="panel_sub">The programmes, collaborators and funders behind the work.</p><div id="partners"></div><a class="more" href="research.html">See the projects</a></aside>
 </div></section>
 
 <section class="alt"><div class="wrap">
@@ -63,10 +71,6 @@
   <div id="proj"></div>
 </div></section>
 
-<section><div class="wrap"><div class="band">
-  <div><h2 data-t="band_title">Need a CV for a funding call?</h2><p data-t="band_text">ICMR, DBT, BIRAC, NIH-style and ERC-style layouts as Word or PDF, or upload the funder's template.</p></div>
-  <a class="btn" href="cv.html">Get a CV</a>
-</div></div></section>
 </main>
 <footer id="ftr"></footer>
 <script src="site.js"></script>
@@ -76,6 +80,7 @@ CV.data().then((d) => {
   document.getElementById('s-pubs').textContent = d.PUBS.length;
   if (d.BIBLIO) { document.getElementById('s-h').textContent = String(d.BIBLIO.h_index).split(' ')[0]; document.getElementById('s-c').textContent = String(d.BIBLIO.citations).split(' ')[0]; }
   const pick = d.PUBS.filter((p) => ['first', 'corresponding', 'last', 'second'].includes(p[7])).slice(0, 5);
+  document.getElementById('partners').innerHTML = d.SITE.partners.map((p) => '<div class="pr"><h3>' + CV.esc(p[0]) + '</h3><div class="pc">' + String(p[1]).split(';').map((x) => x.trim()).filter(Boolean).map((x) => '<span>' + CV.esc(x) + '</span>').join('') + '</div></div>').join('');
   document.getElementById('themes').innerHTML = d.SITE.themes.map((t, i) => '<div class="theme"><span class="ix">0' + (i + 1) + '</span><h3>' + CV.esc(t[0]) + '</h3><p>' + CV.esc(t[1]) + '</p></div>').join('');
   document.getElementById('pubs').innerHTML = pick.map(CV.pubHtml).join('');
   document.getElementById('proj').innerHTML = d.GRANTS_ONGOING.slice(0, 5).map((g) => '<div class="proj"><div><div style="font-weight:700">' + CV.esc(g[0].split(':')[0].split(' (')[0]) + '</div><div class="s">' + CV.esc(g[1]) + ' · ' + CV.esc(g[3]) + '</div></div><span class="chip">' + CV.esc(g[2].split(' (')[0]) + '</span></div>').join('');

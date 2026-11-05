@@ -96,12 +96,12 @@ table.log th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;colo
 
   const POS = ['first', 'second', 'corresponding', 'last', 'co-author', 'group member'];
   const SITE_LABELS = {
-    hero_eyebrow: 'Home: small line above the headline', hero_title: 'Home: headline', hero_lede: 'Home: introduction', hero_tag: 'Home: caption on the photograph',
+    hero_eyebrow: 'Home: small line above the headline', hero_title: 'Home: headline', hero_lede: 'Home: introduction', panel_title: 'Home: partners panel title', panel_sub: 'Home: partners panel sub-heading', 
     focus_title: 'Home: research heading', focus_sub: 'Home: research sub-heading', band_title: 'Home: download banner title', band_text: 'Home: download banner text',
-    research_title: 'Research page: title', research_lede: 'Research page: introduction', about_title: 'About page: title', about_lede: 'About page: introduction',
+    research_title: 'Research page: title', research_lede: 'Research page: introduction', about_title: 'About page: title', about_lede: 'About page: introduction', about_bio: 'About page: main paragraph',
     pubs_title: 'Publications page: title', pubs_lede: 'Publications page: introduction', dl_title: 'Downloads page: title', dl_lede: 'Downloads page: introduction', footer_text: 'Footer: description'
   };
-  const AREA = new Set(['hero_lede', 'focus_sub', 'band_text', 'research_lede', 'about_lede', 'pubs_lede', 'dl_lede', 'footer_text']);
+  const AREA = new Set(['panel_sub', 'about_bio', 'hero_lede', 'focus_sub', 'band_text', 'research_lede', 'about_lede', 'pubs_lede', 'dl_lede', 'footer_text']);
   const LISTS = {
     PUBS: { label: 'Publications', cols: [['Authors', 'area'], ['Title', 'area'], ['Journal', 'text'], ['Year', 'text'], ['Volume and pages', 'text'], ['DOI', 'text'], ['PMID', 'text'], ['Authorship role', 'select', POS]], t: 1, s: (r) => [r[3], r[2], r[7]].filter(Boolean).join(' · '), search: true, sortYear: true, wide: [0, 1] },
     GRANTS_ONGOING: { label: 'Ongoing projects', cols: [['Title', 'area'], ['Funding agency', 'text'], ['Role', 'text'], ['Period', 'text'], ['Amount', 'text'], ['Note', 'text']], t: 0, s: (r) => [r[1], r[2], r[3]].filter(Boolean).join(' · '), wide: [0] },
@@ -114,9 +114,10 @@ table.log th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;colo
     TEACHING: { label: 'Teaching', str: true },
     LEADERSHIP: { label: 'Leadership and programmes', str: true },
     WORKSHOPS: { label: 'Workshops organised', str: true },
+    'SITE.partners': { label: 'Partners panel rows', cols: [['Heading', 'text'], ['Names (separate with semicolons)', 'area']], t: 0, s: (r) => r[1], wide: [0, 1] },
     'SITE.themes': { label: 'Research themes', cols: [['Title', 'text'], ['Short text (Home page card)', 'area'], ['Detailed text (Research page)', 'area']], t: 0, s: (r) => r[1], wide: [0, 1, 2] }
   };
-  const TABS = [['site', 'Site text'], ['SITE.themes', 'Research themes'], ['bio', 'Profile and bio'], ['PUBS', 'Publications'], ['projects', 'Projects'], ['PATENTS', 'Patents'], ['career', 'Positions and education'], ['AWARDS', 'Awards'], ['service', 'Roles and teaching'], ['person', 'Person and metrics'], ['log', 'Download log'], ['hist', 'Version history']];
+  const TABS = [['site', 'Site text'], ['SITE.themes', 'Research themes'], ['SITE.partners', 'Partners panel'], ['bio', 'Profile and bio'], ['PUBS', 'Publications'], ['projects', 'Projects'], ['PATENTS', 'Patents'], ['career', 'Positions and education'], ['AWARDS', 'Awards'], ['service', 'Roles and teaching'], ['person', 'Person and metrics'], ['log', 'Download log'], ['hist', 'Version history']];
   const PERSON_AREA = new Set(['institute_long', 'address', 'domain']);
   const BIBLIO_LABELS = { pubmed_10y: 'PubMed count (10 years)', h_index: 'h-index', citations: 'Citations', i10: 'i10-index', papers_listed: 'Papers listed', patents: 'Patents', academies: 'Academy fellowships' };
 
@@ -145,6 +146,8 @@ table.log th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;colo
   function normalise(d) {
     d.SITE = Object.assign({}, CV.DEFAULT_SITE, d.SITE || {});
     if (!Array.isArray(d.SITE.themes)) d.SITE.themes = CV.DEFAULT_SITE.themes.map((t) => t.slice());
+    if (!Array.isArray(d.SITE.partners)) d.SITE.partners = CV.DEFAULT_SITE.partners.map((t) => t.slice());
+    delete d.SITE.hero_tag;
     ['PUBS', 'GRANTS_ONGOING', 'GRANTS_COMPLETED', 'PATENTS', 'AWARDS', 'POSITIONS', 'EDUCATION', 'ROLES', 'TEACHING', 'LEADERSHIP', 'WORKSHOPS'].forEach((k) => { if (!Array.isArray(d[k])) d[k] = []; });
     d.PERSON = d.PERSON || {}; d.BIBLIO = d.BIBLIO || {};
     delete d.PERSON.dob; delete d.PERSON.mobile; delete d.PERSON.phone;
@@ -209,8 +212,9 @@ table.log th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;colo
 
   const intro = {
     site: ['Site text', 'Headlines and introductions shown on the pages. Leave a field as it is to keep the current wording.'],
+    'SITE.partners': ['Partners panel', 'The panel beside the headline on the Home page. Separate the names in each row with semicolons.'],
     'SITE.themes': ['Research themes', 'The four cards on the Home page and the longer descriptions on the Research page.'],
-    bio: ['Profile and bio', 'Used on the About page and as the default wording when a template is filled.'],
+    bio: ['Profile and bio', 'First-person profile and short bio kept for template filling. The About page uses its own text, under Site text.'],
     PUBS: ['Publications', 'Shown on the Publications page and the Home page highlights (the first rows). Authorship role drives the role filter.'],
     projects: ['Projects', 'Shown on the Research page and the Home page. Pending proposals are never published.'],
     PATENTS: ['Patents', ''],
@@ -227,7 +231,7 @@ table.log th{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;colo
     let h = '<h2>' + E(t) + '</h2>' + (s ? '<p class="sub">' + E(s) + '</p>' : '');
     if (tab === 'site') {
       h += '<div class="kv">' + Object.keys(SITE_LABELS).map((k) => '<div' + (AREA.has(k) ? ' class="wide"' : '') + '><label>' + E(SITE_LABELS[k]) + '</label>' + input(AREA.has(k) ? 'area' : 'text', S.SITE[k] || '', 'data-o="SITE" data-k="' + k + '"') + '</div>').join('') + '</div>';
-    } else if (tab === 'SITE.themes') h += listEditor('SITE.themes');
+    } else if (tab === 'SITE.themes' || tab === 'SITE.partners') h += listEditor(tab);
     else if (tab === 'bio') {
       h += '<div class="kv"><div class="wide"><label>Profile (About page, full CV)</label>' + input('area', S.PROFILE || '', 'data-o="ROOT" data-k="PROFILE" rows="8"') + '</div><div class="wide"><label>Short bio (about 100 words)</label>' + input('area', S.SHORT_BIO_100 || '', 'data-o="ROOT" data-k="SHORT_BIO_100"') + '</div><div class="wide"><label>Data version line (shown in the footer)</label>' + input('text', S.DATA_VERSION || '', 'data-o="ROOT" data-k="DATA_VERSION"') + '</div></div>';
     } else if (tab === 'PUBS' || tab === 'PATENTS' || tab === 'AWARDS') h += listEditor(tab);

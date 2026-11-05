@@ -9,8 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
 <style>
-.intro{display:grid;gap:2rem;align-items:start}
-@media(min-width:52rem){.intro{grid-template-columns:19rem 1fr;gap:3.6rem}}
+.intro{display:block}
 .ph{margin:0}.ph img{display:block;width:100%;aspect-ratio:1/1.08;object-fit:cover;object-position:50% 25%;border-radius:22px;box-shadow:var(--shadow)}
 .intro p{font-size:1.05rem;max-width:42rem}
 .links{display:flex;gap:1.4rem;flex-wrap:wrap;font-weight:700;font-size:.92rem;margin-top:1.2rem}.links a{color:var(--accent);text-underline-offset:4px}
@@ -19,10 +18,9 @@ ul.plain{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule)}ul.
 </style></head>
 <body><header id="hdr"></header>
 <main id="main">
-<div class="pagehead"><div class="wrap"><p class="eyebrow">About</p><h1 data-t="about_title">Physician, researcher, teacher</h1><p class="lede" data-t="about_lede">Trained in paediatrics and biochemistry, with a Ph.D. in maternal and child health.</p></div></div>
+<div class="pagehead"><div class="wrap"><p class="eyebrow">About</p><h1 data-t="about_title">Partnerships and practice</h1><p class="lede" data-t="about_lede">Research, teaching and capacity building in maternal and child health, carried out with clinical, data-science and public-health colleagues.</p></div></div>
 <section><div class="wrap intro">
-  <figure class="ph"><img src="portrait-2.jpg" alt="Dr Ramachandran Thiruvengadam smiling" width="900" height="974"></figure>
-  <div><p id="bio"></p><div class="links"><a id="l-orcid" href="#" rel="noopener">ORCID</a><a id="l-scholar" href="#" rel="noopener">Google Scholar</a><a href="cv.html">Download a CV</a></div></div>
+  <div><p id="bio" data-t="about_bio"></p><div class="links"><a id="l-orcid" href="#" rel="noopener">ORCID</a><a id="l-scholar" href="#" rel="noopener">Google Scholar</a><a href="cv.html">Download a CV</a></div></div>
 </div></section>
 <section class="alt"><div class="wrap"><h2 class="sm">Positions</h2><ul class="rule-list" id="pos"></ul></div></section>
 <section><div class="wrap grid g2" style="gap:3rem">
@@ -37,8 +35,8 @@ ul.plain{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule)}ul.
   <div><h2 class="sm">Leadership and collaborations</h2><ul class="plain" id="lead"></ul></div>
   <div><h2 class="sm">Workshops organised</h2><ul class="plain" id="work"></ul></div>
 </div></section>
-<section class="alt" id="contact"><div class="wrap"><h2 class="sm">Contact</h2>
-  <div class="card" style="max-width:34rem"><p style="margin:0 0 .4rem;font-weight:700" id="c-name"></p><p style="margin:0;color:var(--muted)" id="c-inst"></p><p style="margin:.8rem 0 0"><a id="c-mail" href="#" style="color:var(--accent);font-weight:700"></a></p><p style="margin:.6rem 0 0;color:var(--muted);font-size:.9rem" id="c-addr"></p></div>
+<section id="contact"><div class="wrap"><h2 class="sm">Contact</h2>
+  <div class="card" style="max-width:34rem;display:flex;gap:1.1rem;align-items:center"><img src="portrait.jpg" alt="Dr Ramachandran Thiruvengadam" width="72" height="72" style="width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:50% 18%;flex:none"><div><p style="margin:0 0 .4rem;font-weight:700" id="c-name"></p><p style="margin:0;color:var(--muted)" id="c-inst"></p><p style="margin:.8rem 0 0"><a id="c-mail" href="#" style="color:var(--accent);font-weight:700"></a></p><p style="margin:.6rem 0 0;color:var(--muted);font-size:.9rem" id="c-addr"></p></div></div>
 </div></section>
 </main>
 <footer id="ftr"></footer>
@@ -46,7 +44,6 @@ ul.plain{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule)}ul.
 <script>
 CV.data().then((d) => {
   if (!d) return; const e = CV.esc, P = d.PERSON;
-  document.getElementById('bio').textContent = d.SHORT_BIO_100;
   document.getElementById('l-orcid').href = 'https://orcid.org/' + P.orcid; document.getElementById('l-scholar').href = P.scholar;
   const row = (k, t, s) => '<li class="row"><div class="k">' + e(k) + '</div><div><div class="t">' + e(t) + '</div>' + (s ? '<div class="s">' + e(s) + '</div>' : '') + '</div></li>';
   document.getElementById('pos').innerHTML = d.POSITIONS.map((p) => row(p[2] + ' to ' + p[3], p[1], p[0])).join('');
