@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV downloads: Ramachandran Thiruvengadam</title>
+<meta name="description" content="Download Dr Ramachandran Thiruvengadam's CV in funder and standard formats as Word files, or upload a template to have it filled.">
+<style>
+:root{
+  --bg:#f6f4ef; --panel:#fffdf8; --ink:#1c1b19; --muted:#6a665e; --rule:#d9d4c8; --accent:#12544f; --accent-ink:#fff; --warn:#8a4b0f; --err:#a1261b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#151513; --panel:#1c1c19; --ink:#ecebe6; --muted:#a09c92; --rule:#33322d; --accent:#6cc4bb; --accent-ink:#0b1f1d; --warn:#e0a35c; --err:#ff8c80; }
+}
+:root[data-theme="dark"]{ --bg:#151513; --panel:#1c1c19; --ink:#ecebe6; --muted:#a09c92; --rule:#33322d; --accent:#6cc4bb; --accent-ink:#0b1f1d; --warn:#e0a35c; --err:#ff8c80; }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:46rem;margin:0 auto;padding:2.5rem 16px 4rem}
+h1{font:600 clamp(1.7rem,5vw,2.3rem)/1.15 Georgia,"Times New Roman",serif;margin:0 0 .4rem;letter-spacing:-.01em}
+h2{font:600 1.15rem/1.3 Georgia,"Times New Roman",serif;margin:2.4rem 0 .2rem}
+.sub{color:var(--muted);margin:0 0 1.6rem}
+.step{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:2.2rem 0 .3rem}
+form{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:1.2rem}
+label{display:block;font-weight:600;font-size:.92rem;margin:0 0 .25rem}
+.field{margin:0 0 1rem}
+.field:last-child{margin-bottom:0}
+input[type=text],textarea{width:100%;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--rule);border-radius:4px;padding:.6rem .7rem}
+input[type=text]:focus,textarea:focus,button:focus-visible,input[type=file]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+textarea{min-height:4.2rem;resize:vertical}
+.hint{font-size:.85rem;color:var(--muted);margin:.25rem 0 0}
+input[type=file]{width:100%;font:inherit;font-size:.9rem}
+.row{display:grid;gap:1rem}
+@media(min-width:36rem){.row{grid-template-columns:1fr 1fr}}
+ul.formats{list-style:none;margin:.5rem 0 0;padding:0;border-top:1px solid var(--rule)}
+.formats li{display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:.85rem 0;border-bottom:1px solid var(--rule)}
+.formats .t{font-weight:600}
+.formats .d{font-size:.88rem;color:var(--muted)}
+.acts{display:flex;gap:.5rem;flex-shrink:0}
+select{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--rule);border-radius:4px;padding:.4rem .5rem}
+button{font:inherit;font-weight:600;cursor:pointer;border-radius:4px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);padding:.5rem .95rem;white-space:nowrap}
+button.ghost{background:transparent;color:var(--accent)}
+button:disabled{opacity:.55;cursor:wait}
+#status{min-height:1.5rem;margin:1rem 0 0;font-size:.95rem}
+#status.err{color:var(--err)} #status.ok{color:var(--accent)}
+.note{border-left:3px solid var(--warn);padding:.1rem 0 .1rem .9rem;margin:1.6rem 0;color:var(--muted);font-size:.92rem}
+.note b{color:var(--ink)}
+footer{margin-top:3rem;padding-top:1rem;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted)}
+.tpl{margin-top:1.2rem;padding-top:1.2rem;border-top:1px dashed var(--rule)}
+@media(max-width:30rem){.formats li{flex-direction:column;align-items:stretch}.acts{width:100%}.acts button{flex:1}}
+</style>
+</head>
+<body>
+<main>
+  <h1>CV downloads</h1>
+  <p class="sub">Dr Ramachandran Thiruvengadam, Associate Professor, Maternal and Child Health Programme, BRIC-THSTI, Faridabad</p>
+
+  <p class="step">Step 1 · Tell us who you are</p>
+  <form id="gate" novalidate>
+    <div class="row">
+      <div class="field"><label for="name">Your name</label><input id="name" type="text" autocomplete="name" maxlength="120" required></div>
+      <div class="field"><label for="agency">Funding agency or call</label><input id="agency" type="text" maxlength="160" placeholder="e.g. ICMR, DBT, BIRAC, Wellcome" required></div>
+    </div>
+    <div class="field"><label for="purpose">Purpose</label><textarea id="purpose" maxlength="400" placeholder="e.g. Co-PI biodata for the ICMR call on ..." required></textarea>
+      <p class="hint">Your name, agency and purpose are recorded, and Dr Thiruvengadam is notified when a CV is downloaded.</p></div>
+    <div class="field tpl">
+      <label for="tpl">Template (optional)</label>
+      <input id="tpl" type="file" accept=".docx,.pdf,.txt,.md">
+      <p class="hint">If the funder gave you a CV template, attach it (.docx, .pdf or .txt, up to 3 MB) and the CV is built in that structure as a Word file (or PDF). This takes about a minute.</p>
+      <p style="margin:.8rem 0 0;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center"><button type="button" id="fill">Fill my template</button><label for="out" style="margin:0;font-weight:400">as</label><select id="out"><option value="docx">Word (.docx)</option><option value="pdf">PDF</option></select></p>
+    </div>
+  </form>
+  <div id="status" role="status" aria-live="polite"></div>
+
+  <p class="step">Step 2 · Pick a format</p>
+  <div class="note"><b>Check against the call.</b> These are standard layouts labelled by funder, not the funders' official forms. If a call has its own template, use the template option above. Date of birth, mobile number and similar personal fields are left for you to enter where a format asks for them. The publication selection is for maternal and child health and prediction-model work.</div>
+
+  <div id="lists"></div>
+
+  <footer>
+    <span id="ver">Public edition.</span> Generated from a single master CV. For corrections or a format that is missing, write to the address on the CVs.
+  </footer>
+</main>
+
+<script>
+const API = 'https://vpcfegnfzulpxcmoittm.supabase.co/functions/v1/cv-portal';
+const GROUPS = [
+  ['Indian funders', [
+    ['ICMR_Short_Resume', 'ICMR short resume (PI / Co-PI)', 'Ten selected publications, investigator experience, ongoing ICMR projects'],
+    ['DBT_Biodata', 'DBT biodata', 'Standard biodata layout for DBT calls'],
+    ['BIRAC_Biodata', 'BIRAC biodata', 'Standard biodata layout for BIRAC calls']]],
+  ['Global funders', [
+    ['NIH_Style_Biosketch', 'NIH-style biosketch', 'Personal statement, positions, contributions to science'],
+    ['ERC_Style_CV', 'ERC-style CV', 'Narrative CV with track record']]],
+  ['General', [
+    ['Full_CV', 'Full CV', 'Complete record'],
+    ['Two_Page_CV', 'Two-page CV', 'Short form for panels and forms'],
+    ['Publication_List', 'Publication list', 'All peer-reviewed articles with PMIDs'],
+    ['Short_Bio', 'Short bio', '100 and 200 word versions']]]
+];
+const $ = (id) => document.getElementById(id);
+const statusEl = $('status');
+function say(msg, kind) { statusEl.textContent = msg; statusEl.className = kind || ''; }
+
+function details() {
+  const f = $('gate');
+  if (!f.checkValidity()) { f.reportValidity(); say('Please complete your name, funding agency and purpose first.', 'err'); return null; }
+  return { name: $('name').value.trim(), agency: $('agency').value.trim(), purpose: $('purpose').value.trim() };
+}
+function saveBlob(blob, filename) {
+  const url = URL.createObjectURL(blob); const a = document.createElement('a');
+  a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+
+async function standard(id, label, ext, btn) {
+  const d = details(); if (!d) return;
+  btn.disabled = true; say('Recording your request…');
+  try {
+    const r = await fetch(API + '/log', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, format: id + '.' + ext }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || 'Could not record the request. Please try again.');
+    const a = document.createElement('a');
+    a.href = (ext === 'pdf' ? 'pdf/' : 'docx/') + id + '.' + ext; a.download = 'Ramachandran_Thiruvengadam_' + id + '.' + ext;
+    document.body.appendChild(a); a.click(); a.remove();
+    say(label + ' (' + (ext === 'pdf' ? 'PDF' : 'Word') + ') is downloading.', 'ok');
+  } catch (e) { say(e.message, 'err'); }
+  finally { btn.disabled = false; }
+}
+
+async function fillTemplate() {
+  const d = details(); if (!d) return;
+  const file = $('tpl').files[0];
+  if (!file) { say('Attach a template file first.', 'err'); return; }
+  if (file.size > 3000000) { say('That file is larger than 3 MB.', 'err'); return; }
+  const btn = $('fill'); btn.disabled = true; say('Building your CV in that template. This takes about a minute…');
+  const fd = new FormData(); fd.append('name', d.name); fd.append('agency', d.agency); fd.append('purpose', d.purpose); fd.append('template', file, file.name); const ext = $('out').value; fd.append('output', ext);
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 160000);
+  try {
+    const r = await fetch(API + '/fill', { method: 'POST', body: fd, signal: ctl.signal });
+    if (!r.ok) { const j = await r.json().catch(() => ({})); throw new Error(j.error || 'The template could not be filled. Please try again.'); }
+    const pages = r.headers.get('X-Pages');
+    saveBlob(await r.blob(), 'CV_Ramachandran_Thiruvengadam_' + d.agency.replace(/[^A-Za-z0-9]+/g, '_').slice(0, 30) + '.' + ext);
+    say('Done' + (pages ? ' (' + pages + ' pages)' : '') + '. Check it against the template: the layout follows its structure, not its exact design, and fields marked "To be confirmed" need your input.', 'ok');
+  } catch (e) { say(e.name === 'AbortError' ? 'That took too long. Please try a shorter template.' : e.message, 'err'); }
+  finally { clearTimeout(t); btn.disabled = false; }
+}
+
+const host = $('lists');
+for (const [g, items] of GROUPS) {
+  const h = document.createElement('h2'); h.textContent = g; host.appendChild(h);
+  const ul = document.createElement('ul'); ul.className = 'formats';
+  for (const [id, title, desc] of items) {
+    const li = document.createElement('li');
+    const box = document.createElement('div');
+    const t = document.createElement('div'); t.className = 't'; t.textContent = title;
+    const dd = document.createElement('div'); dd.className = 'd'; dd.textContent = desc;
+    box.append(t, dd);
+    const acts = document.createElement('div'); acts.className = 'acts';
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Download Word';
+    b.setAttribute('aria-label', 'Download ' + title + ' as Word file');
+    b.addEventListener('click', () => standard(id, title, 'docx', b));
+    const p = document.createElement('button'); p.type = 'button'; p.className = 'ghost'; p.textContent = 'PDF';
+    p.setAttribute('aria-label', 'Download ' + title + ' as PDF');
+    p.addEventListener('click', () => standard(id, title, 'pdf', p));
+    acts.append(b, p);
+    li.append(box, acts); ul.appendChild(li);
+  }
+  host.appendChild(ul);
+}
+$('fill').addEventListener('click', fillTemplate);
+fetch('cv_data.json').then(r => r.json()).then(d => { if (d.DATA_VERSION) $('ver').textContent = 'Public edition. Data as of ' + String(d.DATA_VERSION).split(' (')[0] + '.'; }).catch(() => {});
+</script>
+</body>
+</html>
