@@ -16,8 +16,6 @@
     hero_eyebrow: 'Maternal and child health \u00b7 Translational research',
     hero_title: 'Better tools to protect mothers and babies, built together.',
     hero_lede: 'The Maternal and Child Health Programme at BRIC-THSTI, Faridabad, works with clinicians, data scientists and public-health partners on prediction models, AI-enabled imaging and trials to reduce adverse pregnancy outcomes.',
-    panel_title: 'Built with partners',
-    panel_sub: 'The programmes, collaborators and funders behind the work.',
     focus_title: 'Four lines of work, one aim',
     focus_sub: 'Reduce preterm birth, fetal growth restriction and other adverse outcomes with tools that work at public-health scale.',
     band_title: 'Need a CV for a funding call?',
@@ -32,11 +30,6 @@
     dl_title: 'CV and photograph',
     dl_lede: 'A few quick questions come first, so each download reaches the right person and purpose.',
     footer_text: 'Maternal and Child Health Programme, BRIC-Translational Health Science and Technology Institute, Faridabad, India. Research with partners across India and beyond.',
-    partners: [
-      ['Programmes', 'GARBH-Ini; GRASPP trial; MOMI-India; AI for Ultrasound (AI4USG)'],
-      ['Collaborators', 'IIT Madras and the Robert Bosch Centre for Data Science and AI; CMC Vellore; THSTI ADAPT programme'],
-      ['Supported by', 'ICMR; DBT; BIRAC; Wellcome Trust; Gates Foundation via Grand Challenges India']
-    ],
     themes: [
       ['Clinical prediction models', 'Developing and validating risk and dating models for pregnancy outcomes.', 'Developing and validating predictive and diagnostic tools for adverse pregnancy outcomes such as preterm birth and fetal growth restriction, using robustly designed cohort studies and pooled analyses.'],
       ['AI-enabled imaging', 'Point-of-care obstetric ultrasound tools, including gestational age estimation (GAUGE).', 'Point-of-care obstetric ultrasound tools, including the patented Garbh-Ini gestational age estimation system (GAUGE), built with IIT Madras and the Robert Bosch Centre for Data Science and AI.'],
@@ -52,7 +45,6 @@
     if (!d) { try { d = await getJson('cv_data.json'); } catch (_) { return null; } }
     IFMAP = {}; (d.JOURNAL_IF || []).forEach((r) => { IFMAP[r[0]] = r; });
     d.SITE = Object.assign({}, DEFAULT_SITE, d.SITE || {});
-    if (!Array.isArray(d.SITE.partners)) d.SITE.partners = DEFAULT_SITE.partners;
     const v = document.getElementById('ver'); if (v && d.DATA_VERSION) v.textContent = 'Public edition. Data as of ' + String(d.DATA_VERSION).split(' (')[0] + '.';
     const o = document.getElementById('f-orcid'); if (o && d.PERSON && d.PERSON.orcid) o.href = 'https://orcid.org/' + d.PERSON.orcid;
     const sc = document.getElementById('f-scholar'); if (sc && d.PERSON && d.PERSON.scholar) sc.href = d.PERSON.scholar;

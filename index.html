@@ -17,14 +17,9 @@
 @media(max-width:40rem){.strip .band-t{display:none}}
 .hero{padding:clamp(2.2rem,6vw,5rem) 0 clamp(2.4rem,5vw,4.4rem)}
 .hero .wrap{display:grid;gap:2.4rem;align-items:center}
-@media(min-width:56rem){.hero .wrap{grid-template-columns:1.15fr .85fr;gap:4rem}}
+.hero .wrap>div{max-width:46rem}
 .stats{display:flex;gap:2.2rem;flex-wrap:wrap;margin:2.4rem 0 0;padding-top:1.4rem;border-top:1px solid var(--rule)}
 .stat b{display:block;font:500 1.9rem/1 var(--serif);letter-spacing:-.02em}.stat span{font-size:.8rem;color:var(--muted)}
-.partners{background:var(--surface);border:1px solid var(--rule);border-radius:22px;box-shadow:var(--shadow);padding:clamp(1.3rem,3vw,2rem);justify-self:center;width:100%;max-width:27rem}
-.partners h2{font-size:1.5rem;margin:0 0 .3rem}.partners .sub{color:var(--muted);font-size:.92rem;margin:0 0 1.2rem}
-.pr{padding:.95rem 0;border-top:1px solid var(--rule)}.pr h3{font:700 .72rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 .55rem}
-.pc{display:flex;flex-wrap:wrap;gap:.4rem}.pc span{font-size:.84rem;font-weight:600;background:var(--sunk);border:1px solid var(--rule);border-radius:999px;padding:.28rem .75rem;line-height:1.35}
-.partners .more{display:inline-block;margin-top:.8rem}
 .byline{display:flex;align-items:center;gap:.9rem;margin:1.8rem 0 0}.byline img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 18%;box-shadow:var(--shadow);flex:none}.byline p{margin:0;font-size:.88rem;line-height:1.4;color:var(--muted)}.byline b{display:block;color:var(--ink);font-size:.95rem}
 .proj{display:flex;gap:1rem;justify-content:space-between;align-items:flex-start;padding:1rem 0;border-bottom:1px solid var(--rule)}
 .proj:first-child{border-top:1px solid var(--rule)}.proj .s{color:var(--muted);font-size:.88rem}
@@ -47,7 +42,6 @@
       <div class="stat"><b id="s-c">3,956</b><span>citations</span></div>
     </div>
   </div>
-  <aside class="partners" aria-labelledby="pn-t"><h2 id="pn-t" data-t="panel_title">Built with partners</h2><p class="sub" data-t="panel_sub">The programmes, collaborators and funders behind the work.</p><div id="partners"></div><a class="more" href="research.html">See the projects</a></aside>
 </div></section>
 
 <section class="alt"><div class="wrap">
@@ -80,7 +74,6 @@ CV.data().then((d) => {
   document.getElementById('s-pubs').textContent = d.PUBS.length;
   if (d.BIBLIO) { document.getElementById('s-h').textContent = String(d.BIBLIO.h_index).split(' ')[0]; document.getElementById('s-c').textContent = String(d.BIBLIO.citations).split(' ')[0]; }
   const pick = d.PUBS.filter((p) => ['first', 'corresponding', 'last', 'second'].includes(p[7])).slice(0, 5);
-  document.getElementById('partners').innerHTML = d.SITE.partners.map((p) => '<div class="pr"><h3>' + CV.esc(p[0]) + '</h3><div class="pc">' + String(p[1]).split(';').map((x) => x.trim()).filter(Boolean).map((x) => '<span>' + CV.esc(x) + '</span>').join('') + '</div></div>').join('');
   document.getElementById('themes').innerHTML = d.SITE.themes.map((t, i) => '<div class="theme"><span class="ix">0' + (i + 1) + '</span><h3>' + CV.esc(t[0]) + '</h3><p>' + CV.esc(t[1]) + '</p></div>').join('');
   document.getElementById('pubs').innerHTML = pick.map(CV.pubHtml).join('');
   document.getElementById('proj').innerHTML = d.GRANTS_ONGOING.slice(0, 5).map((g) => '<div class="proj"><div><div style="font-weight:700">' + CV.esc(g[0].split(':')[0].split(' (')[0]) + '</div><div class="s">' + CV.esc(g[1]) + ' · ' + CV.esc(g[3]) + '</div></div><span class="chip">' + CV.esc(g[2].split(' (')[0]) + '</span></div>').join('');
