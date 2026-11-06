@@ -45,11 +45,12 @@
     ]
   };
   const getJson = (url, headers) => fetch(url, { headers, signal: AbortSignal.timeout(6000) }).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
-  let cache;
+  let cache, IFMAP = {};
   const data = () => cache || (cache = (async () => {
     let d = null;
     try { const rows = await getJson(SB + '/rest/v1/site_content?key=eq.cv_data&select=value', { apikey: KEY }); if (rows && rows[0] && rows[0].value) d = rows[0].value; } catch (_) {}
     if (!d) { try { d = await getJson('cv_data.json'); } catch (_) { return null; } }
+    IFMAP = {}; (d.JOURNAL_IF || []).forEach((r) => { IFMAP[r[0]] = r; });
     d.SITE = Object.assign({}, DEFAULT_SITE, d.SITE || {});
     if (!Array.isArray(d.SITE.partners)) d.SITE.partners = DEFAULT_SITE.partners;
     const v = document.getElementById('ver'); if (v && d.DATA_VERSION) v.textContent = 'Public edition. Data as of ' + String(d.DATA_VERSION).split(' (')[0] + '.';
@@ -60,6 +61,6 @@
   })());
 
   const boldMe = (au) => esc(au).replace(/(Thiruvengadam R)/g, '<b>$1</b>');
-  const pubHtml = (p) => `<article class="pub"><div class="ti">${esc(p[1])}</div><div class="au">${boldMe(p[0])}</div><div class="jr"><i>${esc(p[2])}</i> ${esc(p[3])}${p[4] ? ';' + esc(p[4]) : ''}</div><div class="lk">${p[7] ? `<span class="chip n">${esc(p[7])}</span>` : ''}${p[6] ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${esc(p[6])}/" rel="noopener">PubMed</a>` : ''}${p[5] ? `<a href="https://doi.org/${esc(p[5])}" rel="noopener">DOI</a>` : ''}</div></article>`;
+  const pubHtml = (p) => `<article class="pub"><div class="ti">${esc(p[1])}</div><div class="au">${boldMe(p[0])}</div><div class="jr"><i>${esc(p[2])}</i> ${esc(p[3])}${p[4] ? ';' + esc(p[4]) : ''}</div><div class="lk">${p[7] ? `<span class="chip n">${esc(p[7])}</span>` : ''}${IFMAP[p[2]] ? `<span class="chip" title="Clarivate Journal Citation Reports impact factor, JCR ${esc(IFMAP[p[2]][2])}">JIF ${esc(IFMAP[p[2]][1])} (${esc(IFMAP[p[2]][2])})</span>` : ''}${p[8] && p[8] !== '0' ? `<span class="chip n" title="Google Scholar citations">Cited by ${esc(p[8])}</span>` : ''}${p[6] ? `<a href="https://pubmed.ncbi.nlm.nih.gov/${esc(p[6])}/" rel="noopener">PubMed</a>` : ''}${p[5] ? `<a href="https://doi.org/${esc(p[5])}" rel="noopener">DOI</a>` : ''}</div></article>`;
   window.CV = { data, esc, boldMe, pubHtml, DEFAULT_SITE, SB, KEY };
 })();

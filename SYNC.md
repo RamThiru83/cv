@@ -1,6 +1,6 @@
 # CV site: where everything lives and how it stays in sync
 
-Updated 5 Nov 2026 (publications now 66: 63 from PubMed plus 3 verified from Google Scholar; CV downloads are also emailed to the requester; monthly automatic CV rebuild added).
+Updated 6 Nov 2026 (journal impact factors, Clarivate JCR from publisher pages, and per-paper Google Scholar citations are stored in cv_data.json as JOURNAL_IF and the 9th element of each PUBS row, shown on the website and printed in every generated CV; the weekly refresh updates the citations; publications now 66: 63 from PubMed plus 3 verified from Google Scholar; CV downloads are also emailed to the requester; monthly automatic CV rebuild added).
 
 | Place | What it holds | Master? |
 |---|---|---|
