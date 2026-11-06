@@ -93,15 +93,29 @@ def kv(d, rows, widths=(4.5, 12.5), size=9):
 ROLE_TAG = {'first': 'First author', 'second': 'Second author', 'corresponding': 'Corresponding author', 'last': 'Last author',
             'co-author': 'Co-author', 'group member': 'Group/consortium member'}
 
+def jif_of(jr):
+    for r in getattr(D, 'JOURNAL_IF', []):
+        if r[0] == jr: return f'JIF {r[1]} ({r[2]})'
+    return ''
+
 def cite(d, p, tag=True, pmid=False, num=None, size=None):
-    authors, title, jr, yr, vp, doi, pm, role = p
+    authors, title, jr, yr, vp, doi, pm, role = p[:8]
+    cites = p[8] if len(p) > 8 else ''
     para_ = d.add_paragraph(); para_.paragraph_format.space_after = Pt(3)
     if num is not None: run(para_, f'{num}. ', size=size)
     run(para_, f'{authors}. {title}. ', size=size); run(para_, jr, italic=True, size=size)
     run(para_, f'. {yr};{vp}. doi:{doi}', size=size)
     if pmid and pm: run(para_, f'. PMID: {pm}', size=size)
-    if tag: run(para_, f'  [{ROLE_TAG[role]}]', italic=True, size=size, color=RGBColor(0x55, 0x60, 0x6B))
+    grey = RGBColor(0x55, 0x60, 0x6B)
+    if tag: run(para_, f'  [{ROLE_TAG[role]}]', italic=True, size=size, color=grey)
+    m = [x for x in (jif_of(jr), (f'Google Scholar citations: {cites}' if str(cites) not in ('', '0') else '')) if x]
+    if m: run(para_, '  [' + '; '.join(m) + ']', italic=True, size=size, color=grey); d._metrics = True
     return para_
+
+def save_doc(d, path):
+    if getattr(d, '_metrics', False):
+        footer_note(d, 'JIF: Journal Impact Factor (Clarivate Journal Citation Reports; JCR year in brackets; shown where verified). Citations: Google Scholar, as on 6 November 2026 (shown where above zero).')
+    d.save(path)
 
 def ongoing_rows(with_status=True):
     rows = []
@@ -148,7 +162,7 @@ def full_cv():
     para(d, 'Papers with more than six authors list the first three authors followed by et al. The bracket gives the role of Dr Thiruvengadam.', italic=True, size=8.5)
     for i, p in enumerate(D.PUBS, 1): cite(d, p, num=i, pmid=True, size=9)
     footer_note(d, ASOF + ' Version: ' + D.DATA_VERSION + ('' if not PUBLIC else ' (public edition)'))
-    d.save(f'{OUT}/Full_CV.docx')
+    save_doc(d, f'{OUT}/Full_CV.docx')
 
 # ---------- 2. Two-page CV ----------
 def two_page():
@@ -165,7 +179,7 @@ def two_page():
     h1(d, 'Service and recognition')
     bullets(d, [D.AWARDS[0][0] + ' (' + D.AWARDS[0][1] + ')', D.ROLES[1], D.ROLES[2], D.ROLES[3], [a for a in D.AWARDS if a[1]=='2020'][0][0] + ' (2020)', [a for a in D.AWARDS if a[1]=='2017'][0][0] + ' (2017)'], size=8.5)
     para(d, f'h-index {D.BIBLIO["h_index"]}; citations {D.BIBLIO["citations"]}.', size=8.5)
-    d.save(f'{OUT}/Two_Page_CV.docx')
+    save_doc(d, f'{OUT}/Two_Page_CV.docx')
 
 # ---------- 3. DBT biodata ----------
 def dbt():
@@ -191,7 +205,7 @@ def dbt():
     for i, ix in enumerate(D.KEY_PUB_IDX, 1): cite(d, D.PUBS[ix], num=i, size=9)
     h1(d, '9. Declaration'); para(d, 'I certify that the particulars above are true and correct.')
     para(d, 'Place: Faridabad\t\t\t\t\t\tSignature:'); para(d, 'Date:')
-    d.save(f'{OUT}/DBT_Biodata.docx')
+    save_doc(d, f'{OUT}/DBT_Biodata.docx')
 
 # ---------- 4. BIRAC biodata ----------
 def birac():
@@ -211,7 +225,7 @@ def birac():
     h1(d, 'F. Five relevant publications')
     for i, ix in enumerate(D.KEY_PUB_IDX[:5], 1): cite(d, D.PUBS[ix], num=i, size=9)
     h1(d, 'G. Awards'); bullets(d, [f'{a[0]} ({a[1]})' for a in D.AWARDS[:6]], size=9)
-    d.save(f'{OUT}/BIRAC_Biodata.docx')
+    save_doc(d, f'{OUT}/BIRAC_Biodata.docx')
 
 # ---------- 5. NIH-style biosketch ----------
 NIH_CONTRIB = [
@@ -236,7 +250,7 @@ def nih():
         for ix in refs: cite(d, D.PUBS[ix], tag=False, pmid=True, size=8.5)
     h1(d, 'F. Synergistic activities'); bullets(d, [D.ROLES[1], D.ROLES[2], D.ROLES[3], D.TEACHING[1], D.TEACHING[4]], size=9)
     h1(d, 'G. Patents'); bullets(d, [f'{p[0]}. Indian application {p[1]} ({p[2].lower()}).' for p in D.PATENTS], size=9)
-    d.save(f'{OUT}/NIH_Style_Biosketch.docx')
+    save_doc(d, f'{OUT}/NIH_Style_Biosketch.docx')
 
 # ---------- 6. ERC-style CV ----------
 def erc():
@@ -259,7 +273,7 @@ def erc():
     for i, ix in enumerate(D.KEY_PUB_IDX, 1): cite(d, D.PUBS[ix], num=i, pmid=True, size=9)
     h1(d, 'Patents'); table(d, ['Title', 'Application no.', 'Status'], [[p[0], p[1], p[2]] for p in D.PATENTS], [10.0, 3.0, 4.0], 9)
     h1(d, 'Bibliometrics'); para(d, f'h-index {D.BIBLIO["h_index"]}; citations {D.BIBLIO["citations"]}; {D.BIBLIO["papers_listed"]} peer-reviewed articles.')
-    d.save(f'{OUT}/ERC_Style_CV.docx')
+    save_doc(d, f'{OUT}/ERC_Style_CV.docx')
 
 # ---------- 7. Short bio ----------
 def short_bio():
@@ -268,7 +282,7 @@ def short_bio():
     h1(d, 'About 100 words'); para(d, D.SHORT_BIO_100, size=11)
     h1(d, 'About 200 words')
     para(d, 'Dr Ramachandran Thiruvengadam is a physician-scientist and Associate Professor in the Maternal and Child Health Programme at the BRIC-Translational Health Science and Technology Institute (THSTI), Department of Biotechnology, Government of India. He trained in paediatrics and biochemistry (DCH, M.D. at AIIMS New Delhi) and holds a Ph.D. in maternal and child health. His work develops and validates predictive and diagnostic tools and interventions to reduce adverse pregnancy outcomes such as preterm birth and fetal growth restriction. He is an investigator in the GARBH-Ini pregnancy cohort programme, where he works with multi-omics and data-science teams on biomarkers and AI-driven decision tools, and he has four Indian patent applications. During 2020-2023 he coordinated the clinical component of the DBT Consortium for COVID-19 Research. He is Principal Investigator of two ICMR National Health Research Priority projects' + ('' if PUBLIC else ' and of the ANRF PRAGATI point-of-care AI ultrasound project') + ', and Co-Principal Investigator of the ICMR GRASPP randomised trial and MOMI-India Phase II. He teaches epidemiology, clinical research and biostatistics, and serves as Academic Editor of PLOS Global Public Health and Associate Editor of Frontiers in Pediatrics.', size=11)
-    d.save(f'{OUT}/Short_Bio.docx')
+    save_doc(d, f'{OUT}/Short_Bio.docx')
 
 # ---------- 8. Publication list ----------
 def publist():
@@ -279,11 +293,11 @@ def publist():
     for i, p in enumerate(D.PUBS, 1):
         if p[3] != yr: yr = p[3]; h1(d, yr)
         cite(d, p, num=i, pmid=True, size=9)
-    d.save(f'{OUT}/Publication_List.docx')
+    save_doc(d, f'{OUT}/Publication_List.docx')
 
 for f in (full_cv, two_page, dbt, birac, short_bio, publist): f()  # NIH-style and ERC-style layouts retired 5 Nov 2026 (per user): ICMR, DBT, BIRAC and generic CVs only
-_keys = ['PERSON','BIBLIO','PROFILE','SHORT_BIO_100','EDUCATION','POSITIONS','GRANTS_ONGOING','GRANTS_PENDING','GRANTS_COMPLETED','PATENTS','AWARDS','TEACHING','LEADERSHIP','ROLES','WORKSHOPS','PUBS','DATA_VERSION']
-_out = {k: getattr(D, k) for k in _keys}
+_keys = ['PERSON','BIBLIO','PROFILE','SHORT_BIO_100','EDUCATION','POSITIONS','GRANTS_ONGOING','GRANTS_PENDING','GRANTS_COMPLETED','PATENTS','AWARDS','TEACHING','LEADERSHIP','ROLES','WORKSHOPS','PUBS','JOURNAL_IF','DATA_VERSION']
+_out = {k: getattr(D, k, []) for k in _keys}
 if PUBLIC:
     import copy
     _out = copy.deepcopy(_out)
